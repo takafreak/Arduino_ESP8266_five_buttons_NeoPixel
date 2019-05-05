@@ -11,6 +11,9 @@ int buttonRead = 0;
 // NeoPixel
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(COUNT_NEOPIXEL, PIN_NEOPIXEL, NEO_GRB + NEO_KHZ800);
 
+//#####################################
+//# Main SETUP
+//#####################################
 void setup() { 
   // Serial
   Serial.begin(115200);
@@ -21,6 +24,9 @@ void setup() {
   strip.show();
 }
 
+//#####################################
+//# Main LOOP
+//#####################################
 void loop() {
   buttonRead = analogRead(PIN_BUTTONS);
 
@@ -28,29 +34,64 @@ void loop() {
   
   if (buttonRead >= 860) {
     // White
-    strip.setPixelColor(0, 255, 255, 255);
-    strip.show();
+    pushWhite();
   } else if (buttonRead >= 710) {
     // Green
-    strip.setPixelColor(0, 0, 255, 0);
-    strip.show();
+    pushGreen();
   } else if (buttonRead >= 590) {
     // Yellow
-    strip.setPixelColor(0, 255, 255, 0);
-    strip.show();
+    pushYellow();
   } else if (buttonRead >= 520) {
     // Blue
-    strip.setPixelColor(0, 0, 0, 255);
-    strip.show();
+    pushBlue();
   } else if (buttonRead >= 450) {
     // Red
-    strip.setPixelColor(0, 255, 0, 0);
-    strip.show();    
+    pushRed();
   } else {
     // None
-    strip.setPixelColor(0, 0, 0, 0);
-    strip.show();    
+    showNeoPixel(0,0,0,0);
   }
+}
 
+//#####################################
+//# Show NeoPixel LED
+//#####################################
+void showNeoPixel(int num,int r,int g,int b) {
+  strip.setPixelColor(num,r,g,b);
+  strip.show();
+}
 
+//#####################################
+//# Function for RED button
+//#####################################
+void pushRed() {
+  showNeoPixel(0,255,0,0);
+}
+
+//#####################################
+//# Function for BLUE button
+//#####################################
+void pushBlue() {
+  showNeoPixel(0,0,0,255);
+}
+
+//#####################################
+//# Function for YELLOW button
+//#####################################
+void pushYellow() {
+  showNeoPixel(0,255,255,0);
+}
+
+//#####################################
+//# Function for GREEN button
+//#####################################
+void pushGreen() {
+  showNeoPixel(0,0,255,0);
+}
+
+//#####################################
+//# Function for WHITE button
+//#####################################
+void pushWhite() {
+  showNeoPixel(0,255,255,255);  
 }
